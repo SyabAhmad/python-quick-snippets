@@ -2,12 +2,12 @@
   "name": "python-quick-snippets",
   "displayName": "PySnipify ML",
   "description": "PySnipify ML is a productivity-boosting Visual Studio Code extension designed to streamline the coding process for Python and Machine Learning developers. Whether you're building neural networks, training models, or writing basic Python scripts, PySnipify ML provides a collection of pre-built code snippets that can be quickly inserted into your projects. From common Python structures like loops and functions to essential ML code for model training and evaluation, this extension helps you write efficient, error-free code faster. Spend less time typing and more time building with PySnipify ML your go-to extension for accelerating Python and Machine Learning workflows.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "SyedSyab",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/username/python-quick-snippets"
+    "url": "https://github.com/SyabAhmad/python-quick-snippets"
   },
   "engines": {
     "vscode": "^1.96.0"
