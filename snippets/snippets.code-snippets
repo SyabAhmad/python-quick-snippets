@@ -1,0 +1,730 @@
+{
+    "Print Statement": {
+      "prefix": "pr",
+      "body": [
+        "print(${1:message})"
+      ],
+      "description": "Quick print statement"
+    },
+    "For Loop": {
+      "prefix": "for",
+      "body": [
+        "for ${1:var} in ${2:iterable}:",
+        "    ${3:pass}"
+      ],
+      "description": "Simple for loop"
+    },
+    "While Loop": {
+      "prefix": "while",
+      "body": [
+        "while ${1:condition}:",
+        "    ${2:pass}"
+      ],
+      "description": "While loop structure"
+    },
+    "If-Else Statement": {
+      "prefix": "ifelse",
+      "body": [
+        "if ${1:condition}:",
+        "    ${2:action}",
+        "else:",
+        "    ${3:else_action}"
+      ],
+      "description": "Basic if-else structure"
+    },
+    "Function Definition": {
+      "prefix": "defn",
+      "body": [
+        "def ${1:function_name}(${2:args}):",
+        "    \"\"\"${3:docstring}\"\"\"",
+        "    ${4:pass}"
+      ],
+      "description": "Define a function template"
+    },
+    "Lambda Function": {
+      "prefix": "lambda",
+      "body": [
+        "${1:lambda} ${2:x}: ${3:x + 1}"
+      ],
+      "description": "Lambda function for quick inline operations"
+    },
+    "Class Definition": {
+      "prefix": "class",
+      "body": [
+        "class ${1:ClassName}:",
+        "    def __init__(self, ${2:args}):",
+        "        ${3:self.arg = args}",
+        "    def ${4:method}(self):",
+        "        ${5:pass}"
+      ],
+      "description": "Class definition template"
+    },
+    "List Comprehension": {
+      "prefix": "listcomp",
+      "body": [
+        "[${1:expression} for ${2:item} in ${3:iterable} if ${4:condition}]"
+      ],
+      "description": "Python list comprehension"
+    },
+    "Dictionary Comprehension": {
+      "prefix": "dictcomp",
+      "body": [
+        "{${1:key}: ${2:value} for ${3:item} in ${4:iterable}}"
+      ],
+      "description": "Dictionary comprehension"
+    },
+    "Try-Except Block": {
+      "prefix": "tryexcept",
+      "body": [
+        "try:",
+        "    ${1:code}",
+        "except ${2:Exception} as ${3:e}:",
+        "    print(${4:'Error occurred:'}, ${3:e})"
+      ],
+      "description": "Basic try-except error handling"
+    },
+    "Open File": {
+      "prefix": "fileopen",
+      "body": [
+        "with open('${1:filename}', '${2:r}') as file:",
+        "    ${3:content = file.read()}"
+      ],
+      "description": "Open file in read mode"
+    },
+    "Write to File": {
+      "prefix": "filewrite",
+      "body": [
+        "with open('${1:filename}', 'w') as file:",
+        "    file.write('${2:text}')"
+      ],
+      "description": "Write text to a file"
+    },
+    "List Initialization": {
+      "prefix": "listinit",
+      "body": [
+        "${1:list_name} = [${2:value1}, ${3:value2}, ${4:value3}]"
+      ],
+      "description": "List initialization"
+    },
+    "Tuple Initialization": {
+      "prefix": "tupleinit",
+      "body": [
+        "${1:tuple_name} = (${2:value1}, ${3:value2}, ${4:value3})"
+      ],
+      "description": "Tuple initialization"
+    },
+    "Set Initialization": {
+      "prefix": "setinit",
+      "body": [
+        "${1:set_name} = {${2:value1}, ${3:value2}, ${4:value3}}"
+      ],
+      "description": "Set initialization"
+    },
+    "Dictionary Initialization": {
+      "prefix": "dictinit",
+      "body": [
+        "${1:dict_name} = {${2:key1}: ${3:value1}, ${4:key2}: ${5:value2}}"
+      ],
+      "description": "Dictionary initialization"
+    },
+    "Range Function": {
+      "prefix": "range",
+      "body": [
+        "for ${1:i} in range(${2:start}, ${3:end}, ${4:step}):",
+        "    ${5:pass}"
+      ],
+      "description": "Range function in a for loop"
+    },
+    "String Concatenation": {
+      "prefix": "concat",
+      "body": [
+        "${1:str1} + ${2:str2}"
+      ],
+      "description": "String concatenation"
+    },
+    "String Formatting (f-string)": {
+      "prefix": "fstring",
+      "body": [
+        "f'${1:value}'"
+      ],
+      "description": "Formatted string using f-string"
+    },
+    "String Split": {
+      "prefix": "split",
+      "body": [
+        "${1:string}.split('${2:delimiter}')"
+      ],
+      "description": "Split string into list"
+    },
+    "String Join": {
+      "prefix": "join",
+      "body": [
+        "${1:delimiter}.join(${2:list})"
+      ],
+      "description": "Join list of strings with delimiter"
+    },
+    "String Replace": {
+      "prefix": "replace",
+      "body": [
+        "${1:string}.replace('${2:old}', '${3:new}')"
+      ],
+      "description": "Replace substring in a string"
+    },
+    "String Uppercase": {
+      "prefix": "upper",
+      "body": [
+        "${1:string}.upper()"
+      ],
+      "description": "Convert string to uppercase"
+    },
+    "String Lowercase": {
+      "prefix": "lower",
+      "body": [
+        "${1:string}.lower()"
+      ],
+      "description": "Convert string to lowercase"
+    },
+    "List Append": {
+      "prefix": "append",
+      "body": [
+        "${1:list}.append(${2:item})"
+      ],
+      "description": "Append item to a list"
+    },
+    "List Pop": {
+      "prefix": "pop",
+      "body": [
+        "${1:list}.pop(${2:index})"
+      ],
+      "description": "Pop item from a list"
+    },
+    "List Sort": {
+      "prefix": "sort",
+      "body": [
+        "${1:list}.sort()"
+      ],
+      "description": "Sort list in ascending order"
+    },
+    "List Reverse": {
+      "prefix": "reverse",
+      "body": [
+        "${1:list}.reverse()"
+      ],
+      "description": "Reverse list in place"
+    },
+    "Dictionary Get": {
+      "prefix": "dictget",
+      "body": [
+        "${1:dict}.get('${2:key}')"
+      ],
+      "description": "Get value from dictionary"
+    },
+    "Dictionary Keys": {
+      "prefix": "dictkeys",
+      "body": [
+        "${1:dict}.keys()"
+      ],
+      "description": "Get keys of a dictionary"
+    },
+    "Dictionary Values": {
+      "prefix": "dictvalues",
+      "body": [
+        "${1:dict}.values()"
+      ],
+      "description": "Get values of a dictionary"
+    },
+    "Convert to List": {
+      "prefix": "tolist",
+      "body": [
+        "list(${1:iterable})"
+      ],
+      "description": "Convert iterable to list"
+    },
+    "Convert to Set": {
+      "prefix": "toset",
+      "body": [
+        "set(${1:iterable})"
+      ],
+      "description": "Convert iterable to set"
+    },
+    "Convert to Tuple": {
+      "prefix": "totuple",
+      "body": [
+        "tuple(${1:iterable})"
+      ],
+      "description": "Convert iterable to tuple"
+    },
+    "Convert to Dictionary": {
+      "prefix": "todict",
+      "body": [
+        "dict(${1:iterable})"
+      ],
+      "description": "Convert iterable to dictionary"
+    },
+    "Find Maximum": {
+      "prefix": "max",
+      "body": [
+        "max(${1:iterable})"
+      ],
+      "description": "Find maximum value in iterable"
+    },
+    "Find Minimum": {
+      "prefix": "min",
+      "body": [
+        "min(${1:iterable})"
+      ],
+      "description": "Find minimum value in iterable"
+    },
+    "Sum of Elements": {
+      "prefix": "sum",
+      "body": [
+        "sum(${1:iterable})"
+      ],
+      "description": "Find sum of elements in iterable"
+    },
+    "Average of List": {
+      "prefix": "avg",
+      "body": [
+        "sum(${1:list}) / len(${1:list})"
+      ],
+      "description": "Calculate average of list"
+    },
+    "Enumerate List": {
+      "prefix": "enumerate",
+      "body": [
+        "for ${1:index}, ${2:item} in enumerate(${3:list}):",
+        "    ${4:pass}"
+      ],
+      "description": "Enumerate over a list"
+    },
+    "Zip Two Lists": {
+      "prefix": "zip",
+      "body": [
+        "zip(${1:list1}, ${2:list2})"
+      ],
+      "description": "Zip two lists together"
+    },
+    "Convert String to Integer": {
+      "prefix": "toint",
+      "body": [
+        "int(${1:string})"
+      ],
+      "description": "Convert string to integer"
+    },
+    "Convert String to Float": {
+      "prefix": "tofloat",
+      "body": [
+        "float(${1:string})"
+      ],
+      "description": "Convert string to float"
+    },
+    "Convert Integer to String": {
+      "prefix": "tostr",
+      "body": [
+        "str(${1:integer})"
+      ],
+      "description": "Convert integer to string"
+    },
+    "Convert Float to String": {
+      "prefix": "tofloatstr",
+      "body": [
+        "str(${1:float})"
+      ],
+      "description": "Convert float to string"
+    },
+    "Is Instance Check": {
+      "prefix": "isinstance",
+      "body": [
+        "isinstance(${1:value}, ${2:type})"
+      ],
+      "description": "Check if an object is an instance of a type"
+    },
+    "List Slice": {
+      "prefix": "slice",
+      "body": [
+        "${1:list}[${2:start}:${3:end}]"
+      ],
+      "description": "Slice a list"
+    },
+    "Create Empty List": {
+      "prefix": "emptylist",
+      "body": [
+        "${1:list_name} = []"
+      ],
+      "description": "Create an empty list"
+    },
+    "Create Empty Dictionary": {
+      "prefix": "emptydict",
+      "body": [
+        "${1:dict_name} = {}"
+      ],
+      "description": "Create an empty dictionary"
+    },
+        "Import Libraries": {
+          "prefix": "imml",
+          "body": [
+            "import numpy as np",
+            "import pandas as pd",
+            "import matplotlib.pyplot as plt",
+            "import seaborn as sns",
+            "from sklearn.model_selection import train_test_split",
+            "from sklearn.preprocessing import StandardScaler",
+            "from sklearn.linear_model import LogisticRegression",
+            "from sklearn.ensemble import RandomForestClassifier",
+            "from sklearn.metrics import accuracy_score, confusion_matrix"
+          ],
+          "description": "Import common ML libraries"
+        },
+        "Load Dataset": {
+          "prefix": "loaddata",
+          "body": [
+            "data = pd.read_csv('${1:dataset.csv}')"
+          ],
+          "description": "Load dataset using pandas"
+        },
+        "Split Data": {
+          "prefix": "splitdata",
+          "body": [
+            "X = data.drop('${1:target_column}', axis=1)",
+            "y = data['${1:target_column}']",
+            "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)"
+          ],
+          "description": "Split data into train and test sets"
+        },
+        "Feature Scaling": {
+          "prefix": "scale",
+          "body": [
+            "scaler = StandardScaler()",
+            "X_train_scaled = scaler.fit_transform(X_train)",
+            "X_test_scaled = scaler.transform(X_test)"
+          ],
+          "description": "Apply feature scaling to the data"
+        },
+        "Train Logistic Regression": {
+          "prefix": "trainlogreg",
+          "body": [
+            "model = LogisticRegression()",
+            "model.fit(X_train_scaled, y_train)"
+          ],
+          "description": "Train a logistic regression model"
+        },
+        "Train Random Forest": {
+          "prefix": "trainrf",
+          "body": [
+            "rf_model = RandomForestClassifier(n_estimators=100, random_state=42)",
+            "rf_model.fit(X_train_scaled, y_train)"
+          ],
+          "description": "Train a random forest classifier"
+        },
+        "Model Prediction": {
+          "prefix": "predictmodel",
+          "body": [
+            "y_pred = model.predict(X_test_scaled)"
+          ],
+          "description": "Make predictions using the trained model"
+        },
+        "Model Accuracy": {
+          "prefix": "accuracy",
+          "body": [
+            "accuracy = accuracy_score(y_test, y_pred)",
+            "print('Accuracy:', accuracy)"
+          ],
+          "description": "Evaluate the model's accuracy"
+        },
+        "Confusion Matrix": {
+          "prefix": "confusionmatrix",
+          "body": [
+            "cm = confusion_matrix(y_test, y_pred)",
+            "sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')",
+            "plt.show()"
+          ],
+          "description": "Generate confusion matrix"
+        },
+        "Cross Validation": {
+          "prefix": "crossval",
+          "body": [
+            "from sklearn.model_selection import cross_val_score",
+            "cv_scores = cross_val_score(model, X, y, cv=5)",
+            "print('Cross-validation scores:', cv_scores)"
+          ],
+          "description": "Perform cross-validation"
+        },
+        "Save Model": {
+          "prefix": "savemodel",
+          "body": [
+            "import joblib",
+            "joblib.dump(model, '${1:model}.pkl')"
+          ],
+          "description": "Save the trained model using joblib"
+        },
+        "Load Model": {
+          "prefix": "loadmodel",
+          "body": [
+            "model = joblib.load('${1:model}.pkl')"
+          ],
+          "description": "Load a saved model"
+        },
+        "Feature Importance": {
+          "prefix": "featimportance",
+          "body": [
+            "importances = rf_model.feature_importances_",
+            "indices = np.argsort(importances)[::-1]",
+            "plt.figure(figsize=(10, 6))",
+            "plt.title('Feature Importance')",
+            "plt.bar(range(X_train_scaled.shape[1]), importances[indices], align='center')",
+            "plt.xticks(range(X_train_scaled.shape[1]), X_train.columns[indices], rotation=90)",
+            "plt.show()"
+          ],
+          "description": "Plot feature importance for Random Forest model"
+        },
+        "ROC Curve": {
+          "prefix": "roccurve",
+          "body": [
+            "from sklearn.metrics import roc_curve, auc",
+            "fpr, tpr, thresholds = roc_curve(y_test, y_pred)",
+            "roc_auc = auc(fpr, tpr)",
+            "plt.figure()",
+            "plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)",
+            "plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')",
+            "plt.xlim([0.0, 1.0])",
+            "plt.ylim([0.0, 1.05])",
+            "plt.xlabel('False Positive Rate')",
+            "plt.ylabel('True Positive Rate')",
+            "plt.title('Receiver Operating Characteristic')",
+            "plt.legend(loc='lower right')",
+            "plt.show()"
+          ],
+          "description": "Plot ROC curve"
+        },
+        "Grid Search": {
+          "prefix": "gridsearch",
+          "body": [
+            "from sklearn.model_selection import GridSearchCV",
+            "param_grid = {",
+            "  'n_estimators': [50, 100, 200],",
+            "  'max_depth': [10, 20, 30]",
+            "}",
+            "grid_search = GridSearchCV(estimator=rf_model, param_grid=param_grid, cv=5)",
+            "grid_search.fit(X_train_scaled, y_train)",
+            "print('Best parameters:', grid_search.best_params_)"
+          ],
+          "description": "Perform Grid Search for hyperparameter tuning"
+        },
+        "Save Model with Pickle": {
+          "prefix": "savepickle",
+          "body": [
+            "import pickle",
+            "with open('${1:model_name}.pkl', 'wb') as f:",
+            "    pickle.dump(model, f)"
+          ],
+          "description": "Save model using pickle"
+        },
+        "Load Model with Pickle": {
+          "prefix": "loadpickle",
+          "body": [
+            "import pickle",
+            "with open('${1:model_name}.pkl', 'rb') as f:",
+            "    model = pickle.load(f)"
+          ],
+          "description": "Load a model using pickle"
+        },
+        "Line Plot": {
+          "prefix": "lineplot",
+          "body": [
+            "plt.plot(x, y, color='blue', marker='o')",
+            "plt.title('Line Plot')",
+            "plt.xlabel('${1:x-label}')",
+            "plt.ylabel('${2:y-label}')",
+            "plt.grid(True)",
+            "plt.show()"
+          ],
+          "description": "Generate a simple line plot"
+        },
+        "Scatter Plot": {
+          "prefix": "scatterplot",
+          "body": [
+            "plt.scatter(x, y, color='red')",
+            "plt.title('Scatter Plot')",
+            "plt.xlabel('${1:x-label}')",
+            "plt.ylabel('${2:y-label}')",
+            "plt.show()"
+          ],
+          "description": "Generate a scatter plot"
+        },
+        "Bar Plot": {
+          "prefix": "barplot",
+          "body": [
+            "plt.bar(x, y, color='green')",
+            "plt.title('Bar Plot')",
+            "plt.xlabel('${1:x-label}')",
+            "plt.ylabel('${2:y-label}')",
+            "plt.show()"
+          ],
+          "description": "Generate a bar plot"
+        },
+        "Histogram": {
+          "prefix": "histogram",
+          "body": [
+            "plt.hist(data, bins=20, color='purple')",
+            "plt.title('Histogram')",
+            "plt.xlabel('${1:x-label}')",
+            "plt.ylabel('${2:y-label}')",
+            "plt.show()"
+          ],
+          "description": "Generate a histogram"
+        },
+        "Heatmap": {
+          "prefix": "heatmap",
+          "body": [
+            "sns.heatmap(data.corr(), annot=True, cmap='coolwarm')",
+            "plt.title('Correlation Heatmap')",
+            "plt.show()"
+          ],
+          "description": "Generate a heatmap for correlation matrix"
+        },
+        "Boxplot": {
+          "prefix": "boxplot",
+          "body": [
+            "sns.boxplot(x='${1:category}', y='${2:value}', data=data)",
+            "plt.title('Boxplot')",
+            "plt.show()"
+          ],
+          "description": "Generate a boxplot"
+        },
+        "Pairplot": {
+          "prefix": "pairplot",
+          "body": [
+            "sns.pairplot(data, hue='${1:category}')",
+            "plt.show()"
+          ],
+          "description": "Generate pairplot for dataset"
+        },
+        "Violin Plot": {
+          "prefix": "violinplot",
+          "body": [
+            "sns.violinplot(x='${1:category}', y='${2:value}', data=data)",
+            "plt.title('Violin Plot')",
+            "plt.show()"
+          ],
+          "description": "Generate a violin plot"
+        },
+        "Area Plot": {
+          "prefix": "areaplot",
+          "body": [
+            "plt.fill_between(x, y, color='skyblue', alpha=0.4)",
+            "plt.title('Area Plot')",
+            "plt.show()"
+          ],
+          "description": "Generate an area plot"
+        },
+        "Precision Recall F1": {
+          "prefix": "precrecallf1",
+          "body": [
+            "from sklearn.metrics import precision_score, recall_score, f1_score",
+            "precision = precision_score(y_test, y_pred)",
+            "recall = recall_score(y_test, y_pred)",
+            "f1 = f1_score(y_test, y_pred)",
+            "print('Precision:', precision)",
+            "print('Recall:', recall)",
+            "print('F1-Score:', f1)"
+          ],
+          "description": "Calculate precision, recall, and F1-score"
+        },
+        "Pipeline": {
+  "prefix": "pipeline",
+  "body": [
+    "from sklearn.pipeline import Pipeline",
+    "pipeline = Pipeline([",
+    "  ('scaler', StandardScaler()),",
+    "  ('classifier', LogisticRegression())",
+    "])",
+    "pipeline.fit(X_train, y_train)"
+  ],
+  "description": "Create and use a machine learning pipeline"
+},
+"RandomizedSearchCV": {
+  "prefix": "randsearch",
+  "body": [
+    "from sklearn.model_selection import RandomizedSearchCV",
+    "param_dist = {",
+    "  'n_estimators': [50, 100, 150],",
+    "  'max_depth': [10, 20, 30]",
+    "}",
+    "random_search = RandomizedSearchCV(estimator=rf_model, param_distributions=param_dist, n_iter=100, cv=5)",
+    "random_search.fit(X_train_scaled, y_train)",
+    "print('Best parameters:', random_search.best_params_)"
+  ],
+  "description": "Perform RandomizedSearchCV for hyperparameter tuning"
+},
+"PCA": {
+  "prefix": "pca",
+  "body": [
+    "from sklearn.decomposition import PCA",
+    "pca = PCA(n_components=2)",
+    "X_pca = pca.fit_transform(X_train_scaled)",
+    "print('Explained variance ratio:', pca.explained_variance_ratio_)"
+  ],
+  "description": "Apply PCA for dimensionality reduction"
+},
+"SMOTE": {
+  "prefix": "smote",
+  "body": [
+    "from imblearn.over_sampling import SMOTE",
+    "smote = SMOTE()",
+    "X_res, y_res = smote.fit_resample(X_train, y_train)",
+    "print('Resampled dataset shape:', X_res.shape)"
+  ],
+  "description": "Apply SMOTE for balancing imbalanced datasets"
+},
+"SHAP": {
+  "prefix": "shap",
+  "body": [
+    "import shap",
+    "explainer = shap.TreeExplainer(rf_model)",
+    "shap_values = explainer.shap_values(X_train_scaled)",
+    "shap.summary_plot(shap_values, X_train_scaled)"
+  ],
+  "description": "Generate SHAP summary plot for model interpretation"
+},
+"GradientBoosting": {
+  "prefix": "gradboost",
+  "body": [
+    "from sklearn.ensemble import GradientBoostingClassifier",
+    "gb_model = GradientBoostingClassifier()",
+    "gb_model.fit(X_train_scaled, y_train)"
+  ],
+  "description": "Train a Gradient Boosting model"
+},
+"K-Fold Cross Validation": {
+  "prefix": "kfoldcv",
+  "body": [
+    "from sklearn.model_selection import cross_val_score",
+    "scores = cross_val_score(model, X, y, cv=5)",
+    "print('Cross-validation scores:', scores)"
+  ],
+  "description": "Perform K-fold cross-validation"
+},
+"Voting Classifier": {
+  "prefix": "votingclassifier",
+  "body": [
+    "from sklearn.ensemble import VotingClassifier",
+    "model1 = LogisticRegression()",
+    "model2 = RandomForestClassifier()",
+    "ensemble_model = VotingClassifier(estimators=[('lr', model1), ('rf', model2)], voting='hard')",
+    "ensemble_model.fit(X_train_scaled, y_train)"
+  ],
+  "description": "Create an ensemble model using voting classifier"
+}
+
+
+
+
+
+
+
+
+
+
+      }
+      
+  
