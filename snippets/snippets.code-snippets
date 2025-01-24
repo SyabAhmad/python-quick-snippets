@@ -714,10 +714,297 @@
     "ensemble_model.fit(X_train_scaled, y_train)"
   ],
   "description": "Create an ensemble model using voting classifier"
-}
+},
 
-
-
+  "cnnmodel": {
+    "prefix": "cnnmodel",
+    "body": [
+      "from tensorflow.keras.models import Sequential",
+      "from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense",
+      "",
+      "model = Sequential([",
+      "    Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)),",
+      "    MaxPooling2D(pool_size=(2, 2)),",
+      "    Flatten(),",
+      "    Dense(128, activation='relu'),",
+      "    Dense(10, activation='softmax')",
+      "])",
+      "",
+      "model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])",
+      "model.fit(X_train, y_train, epochs=10, batch_size=32)"
+    ],
+    "description": "Define and train a CNN model using TensorFlow/Keras"
+  },
+  "rnnmodel": {
+    "prefix": "rnnmodel",
+    "body": [
+      "from tensorflow.keras.models import Sequential",
+      "from tensorflow.keras.layers import SimpleRNN, Dense",
+      "",
+      "model = Sequential([",
+      "    SimpleRNN(50, activation='tanh', input_shape=(100, 1)),",
+      "    Dense(1, activation='sigmoid')",
+      "])",
+      "",
+      "model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])",
+      "model.fit(X_train, y_train, epochs=10, batch_size=32)"
+    ],
+    "description": "Define and train an RNN model using TensorFlow/Keras"
+  },
+  "lstmmodel": {
+    "prefix": "lstmmodel",
+    "body": [
+      "from tensorflow.keras.models import Sequential",
+      "from tensorflow.keras.layers import LSTM, Dense",
+      "",
+      "model = Sequential([",
+      "    LSTM(50, activation='tanh', input_shape=(100, 1)),",
+      "    Dense(1, activation='sigmoid')",
+      "])",
+      "",
+      "model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])",
+      "model.fit(X_train, y_train, epochs=10, batch_size=32)"
+    ],
+    "description": "Define and train an LSTM model using TensorFlow/Keras"
+  },
+  "svmmodel": {
+    "prefix": "svmmodel",
+    "body": [
+      "from sklearn.svm import SVC",
+      "",
+      "model = SVC(kernel='rbf', C=1, gamma='scale')",
+      "model.fit(X_train, y_train)",
+      "y_pred = model.predict(X_test)"
+    ],
+    "description": "Train an SVM model using scikit-learn"
+  },
+  "knnmodel": {
+    "prefix": "knnmodel",
+    "body": [
+      "from sklearn.neighbors import KNeighborsClassifier",
+      "",
+      "model = KNeighborsClassifier(n_neighbors=5)",
+      "model.fit(X_train, y_train)",
+      "y_pred = model.predict(X_test)"
+    ],
+    "description": "Train a KNN model using scikit-learn"
+  },
+  "decisiontree": {
+    "prefix": "decisiontree",
+    "body": [
+      "from sklearn.tree import DecisionTreeClassifier",
+      "",
+      "model = DecisionTreeClassifier(max_depth=5, random_state=42)",
+      "model.fit(X_train, y_train)",
+      "y_pred = model.predict(X_test)"
+    ],
+    "description": "Train a Decision Tree model using scikit-learn"
+  },
+  "randomforest": {
+    "prefix": "randomforest",
+    "body": [
+      "from sklearn.ensemble import RandomForestClassifier",
+      "",
+      "model = RandomForestClassifier(n_estimators=100, random_state=42)",
+      "model.fit(X_train, y_train)",
+      "y_pred = model.predict(X_test)"
+    ],
+    "description": "Train a Random Forest model using scikit-learn"
+  },
+  "xgboostmodel": {
+    "prefix": "xgboostmodel",
+    "body": [
+      "from xgboost import XGBClassifier",
+      "",
+      "model = XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=6, random_state=42)",
+      "model.fit(X_train, y_train)",
+      "y_pred = model.predict(X_test)"
+    ],
+    "description": "Train an XGBoost model"
+  },
+  "gradientboosting": {
+    "prefix": "gradientboosting",
+    "body": [
+      "from sklearn.ensemble import GradientBoostingClassifier",
+      "",
+      "model = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)",
+      "model.fit(X_train, y_train)",
+      "y_pred = model.predict(X_test)"
+    ],
+    "description": "Train a Gradient Boosting model using scikit-learn"
+  },
+  "naivebayes": {
+    "prefix": "naivebayes",
+    "body": [
+      "from sklearn.naive_bayes import GaussianNB",
+      "",
+      "model = GaussianNB()",
+      "model.fit(X_train, y_train)",
+      "y_pred = model.predict(X_test)"
+    ],
+    "description": "Train a Naive Bayes model using scikit-learn"
+  },
+    "Convert Image to Grayscale": {
+      "prefix": "cv2gray",
+      "body": [
+        "gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)"
+      ],
+      "description": "Convert an image to grayscale using OpenCV."
+    },
+    "Resize Image": {
+      "prefix": "cv2resize",
+      "body": [
+        "resized_image = cv2.resize(image, (width, height))"
+      ],
+      "description": "Resize an image to the given width and height."
+    },
+    "Rotate Image": {
+      "prefix": "cv2rotate",
+      "body": [
+        "rows, cols = image.shape[:2]",
+        "rotation_matrix = cv2.getRotationMatrix2D((cols/2, rows/2), angle, scale)",
+        "rotated_image = cv2.warpAffine(image, rotation_matrix, (cols, rows))"
+      ],
+      "description": "Rotate an image by a given angle."
+    },
+    "Flip Image": {
+      "prefix": "cv2flip",
+      "body": [
+        "flipped_image = cv2.flip(image, flip_code)"
+      ],
+      "description": "Flip an image horizontally (flip_code=1), vertically (flip_code=0), or both (flip_code=-1)."
+    },
+    "Apply Gaussian Blur": {
+      "prefix": "cv2gaussianblur",
+      "body": [
+        "blurred_image = cv2.GaussianBlur(image, (kernel_size, kernel_size), sigmaX)"
+      ],
+      "description": "Apply Gaussian blur to an image."
+    },
+    "Draw Contours": {
+      "prefix": "cv2drawcontours",
+      "body": [
+        "contours, hierarchy = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)",
+        "cv2.drawContours(image, contours, -1, (color), thickness)"
+      ],
+      "description": "Find and draw contours on an image."
+    },
+    "Draw Rectangle": {
+      "prefix": "cv2rectangle",
+      "body": [
+        "cv2.rectangle(image, (x1, y1), (x2, y2), (color), thickness)"
+      ],
+      "description": "Draw a rectangle on an image."
+    },
+    "Draw Circle": {
+      "prefix": "cv2circle",
+      "body": [
+        "cv2.circle(image, (center_x, center_y), radius, (color), thickness)"
+      ],
+      "description": "Draw a circle on an image."
+    },
+    "Draw Line": {
+      "prefix": "cv2line",
+      "body": [
+        "cv2.line(image, (x1, y1), (x2, y2), (color), thickness)"
+      ],
+      "description": "Draw a line on an image."
+    },
+    "Apply Mask": {
+      "prefix": "cv2mask",
+      "body": [
+        "masked_image = cv2.bitwise_and(image, image, mask=mask)"
+      ],
+      "description": "Apply a mask to an image."
+    },
+    "Convert to HSV": {
+      "prefix": "cv2hsv",
+      "body": [
+        "hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)"
+      ],
+      "description": "Convert an image to HSV color space."
+    },
+    "Detect Edges (Canny)": {
+      "prefix": "cv2canny",
+      "body": [
+        "edges = cv2.Canny(image, threshold1, threshold2)"
+      ],
+      "description": "Detect edges in an image using the Canny edge detection algorithm."
+    },
+    "Find Contour Centers": {
+      "prefix": "cv2centroid",
+      "body": [
+        "contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)",
+        "for contour in contours:",
+        "    M = cv2.moments(contour)",
+        "    if M['m00'] != 0:",
+        "        cx = int(M['m10'] / M['m00'])",
+        "        cy = int(M['m01'] / M['m00'])"
+      ],
+      "description": "Find centroids of contours in an image."
+    },
+    "Convert to Binary": {
+      "prefix": "cv2binary",
+      "body": [
+        "_, binary_image = cv2.threshold(gray_image, threshold, max_value, cv2.THRESH_BINARY)"
+      ],
+      "description": "Convert a grayscale image to binary using thresholding."
+    },
+    "Apply Morphological Transform": {
+      "prefix": "cv2morphology",
+      "body": [
+        "kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (kernel_size, kernel_size))",
+        "morphed_image = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)"
+      ],
+      "description": "Apply morphological transformations to an image."
+    },
+    "Split Channels": {
+      "prefix": "cv2splitchannels",
+      "body": [
+        "blue_channel, green_channel, red_channel = cv2.split(image)"
+      ],
+      "description": "Split an image into its Blue, Green, and Red channels."
+    },
+    "Merge Channels": {
+      "prefix": "cv2mergechannels",
+      "body": [
+        "merged_image = cv2.merge([blue_channel, green_channel, red_channel])"
+      ],
+      "description": "Merge separate channels into an image."
+    },
+    "Resize Maintaining Aspect Ratio": {
+      "prefix": "cv2resizeaspect",
+      "body": [
+        "height, width = image.shape[:2]",
+        "new_width = int(width * scale)",
+        "new_height = int(height * scale)",
+        "resized_image = cv2.resize(image, (new_width, new_height))"
+      ],
+      "description": "Resize an image while maintaining its aspect ratio."
+    },
+    "Add Text to Image": {
+      "prefix": "cv2puttext",
+      "body": [
+        "cv2.putText(image, 'Text', (x, y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (color), thickness)"
+      ],
+      "description": "Add text to an image at a specified location."
+    },
+    "Apply CLAHE": {
+      "prefix": "cv2clahe",
+      "body": [
+        "clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=(grid_size, grid_size))",
+        "equalized_image = clahe.apply(gray_image)"
+      ],
+      "description": "Apply CLAHE (Contrast Limited Adaptive Histogram Equalization) to enhance contrast."
+    },
+    "Perspective Transform": {
+      "prefix": "cv2perspectivetransform",
+      "body": [
+        "matrix = cv2.getPerspectiveTransform(pts1, pts2)",
+        "warped_image = cv2.warpPerspective(image, matrix, (width, height))"
+      ],
+      "description": "Apply a perspective transformation to an image."
+    }
 
 
 
