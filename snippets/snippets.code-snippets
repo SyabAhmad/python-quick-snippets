@@ -360,657 +360,537 @@
       ],
       "description": "Create an empty dictionary"
     },
-        "Import Libraries": {
-          "prefix": "imml",
+      "Import Libraries": {
+        "prefix": "imml",
+        "body": [
+          "import numpy as np",
+          "import pandas as pd",
+          "import matplotlib.pyplot as plt",
+          "import seaborn as sns",
+          "from sklearn.model_selection import train_test_split",
+          "from sklearn.preprocessing import StandardScaler",
+          "from sklearn.linear_model import LogisticRegression",
+          "from sklearn.ensemble import RandomForestClassifier",
+          "from sklearn.metrics import accuracy_score, confusion_matrix"
+        ],
+        "description": "Import common ML libraries"
+      },
+      "Load Dataset": {
+        "prefix": "loaddata",
+        "body": [
+          "data = pd.read_csv('${1:dataset.csv}')"
+        ],
+        "description": "Load dataset using pandas"
+      },
+      "Split Data": {
+        "prefix": "splitdata",
+        "body": [
+          "X = data.drop('${1:target_column}', axis=1)",
+          "y = data['${1:target_column}']",
+          "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)"
+        ],
+        "description": "Split data into train and test sets"
+      },
+      "Feature Scaling": {
+        "prefix": "scale",
+        "body": [
+          "scaler = StandardScaler()",
+          "X_train_scaled = scaler.fit_transform(X_train)",
+          "X_test_scaled = scaler.transform(X_test)"
+        ],
+        "description": "Apply feature scaling to the data"
+      },
+      "Train Logistic Regression": {
+        "prefix": "trainlogreg",
+        "body": [
+          "model = LogisticRegression()",
+          "model.fit(X_train_scaled, y_train)"
+        ],
+        "description": "Train a logistic regression model"
+      },
+      "Train Random Forest": {
+        "prefix": "trainrf",
+        "body": [
+          "rf_model = RandomForestClassifier(n_estimators=100, random_state=42)",
+          "rf_model.fit(X_train_scaled, y_train)"
+        ],
+        "description": "Train a random forest classifier"
+      },
+      "Model Prediction": {
+        "prefix": "predictmodel",
+        "body": [
+          "y_pred = model.predict(X_test_scaled)"
+        ],
+        "description": "Make predictions using the trained model"
+      },
+      "Model Accuracy": {
+        "prefix": "accuracy",
+        "body": [
+          "accuracy = accuracy_score(y_test, y_pred)",
+          "print('Accuracy:', accuracy)"
+        ],
+        "description": "Evaluate the model's accuracy"
+      },
+      "Confusion Matrix": {
+        "prefix": "confusionmatrix",
+        "body": [
+          "cm = confusion_matrix(y_test, y_pred)",
+          "sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')",
+          "plt.show()"
+        ],
+        "description": "Generate confusion matrix"
+      },
+      "Cross Validation": {
+        "prefix": "crossval",
+        "body": [
+          "from sklearn.model_selection import cross_val_score",
+          "cv_scores = cross_val_score(model, X, y, cv=5)",
+          "print('Cross-validation scores:', cv_scores)"
+        ],
+        "description": "Perform cross-validation"
+      },
+      "Save Model": {
+        "prefix": "savemodel",
+        "body": [
+          "import joblib",
+          "joblib.dump(model, '${1:model}.pkl')"
+        ],
+        "description": "Save the trained model using joblib"
+      },
+      "Load Model": {
+        "prefix": "loadmodel",
+        "body": [
+          "model = joblib.load('${1:model}.pkl')"
+        ],
+        "description": "Load a saved model"
+      },
+      "Feature Importance": {
+        "prefix": "featimportance",
+        "body": [
+          "importances = rf_model.feature_importances_",
+          "indices = np.argsort(importances)[::-1]",
+          "plt.figure(figsize=(10, 6))",
+          "plt.title('Feature Importance')",
+          "plt.bar(range(X_train_scaled.shape[1]), importances[indices], align='center')",
+          "plt.xticks(range(X_train_scaled.shape[1]), X_train.columns[indices], rotation=90)",
+          "plt.show()"
+        ],
+        "description": "Plot feature importance for Random Forest model"
+      },
+      "ROC Curve": {
+        "prefix": "roccurve",
+        "body": [
+          "from sklearn.metrics import roc_curve, auc",
+          "fpr, tpr, thresholds = roc_curve(y_test, y_pred)",
+          "roc_auc = auc(fpr, tpr)",
+          "plt.figure()",
+          "plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)",
+          "plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')",
+          "plt.xlim([0.0, 1.0])",
+          "plt.ylim([0.0, 1.05])",
+          "plt.xlabel('False Positive Rate')",
+          "plt.ylabel('True Positive Rate')",
+          "plt.title('Receiver Operating Characteristic')",
+          "plt.legend(loc='lower right')",
+          "plt.show()"
+        ],
+        "description": "Plot ROC curve"
+      },
+      "Grid Search": {
+        "prefix": "gridsearch",
+        "body": [
+          "from sklearn.model_selection import GridSearchCV",
+          "param_grid = {",
+          "  'n_estimators': [50, 100, 200],",
+          "  'max_depth': [10, 20, 30]",
+          "}",
+          "grid_search = GridSearchCV(estimator=rf_model, param_grid=param_grid, cv=5)",
+          "grid_search.fit(X_train_scaled, y_train)",
+          "print('Best parameters:', grid_search.best_params_)"
+        ],
+        "description": "Perform Grid Search for hyperparameter tuning"
+      },
+      "Save Model with Pickle": {
+        "prefix": "savepickle",
+        "body": [
+          "import pickle",
+          "with open('${1:model_name}.pkl', 'wb') as f:",
+          "    pickle.dump(model, f)"
+        ],
+        "description": "Save model using pickle"
+      },
+      "Load Model with Pickle": {
+        "prefix": "loadpickle",
+        "body": [
+          "import pickle",
+          "with open('${1:model_name}.pkl', 'rb') as f:",
+          "    model = pickle.load(f)"
+        ],
+        "description": "Load a model using pickle"
+      },
+      "Line Plot": {
+        "prefix": "lineplot",
+        "body": [
+          "plt.plot(x, y, color='blue', marker='o')",
+          "plt.title('Line Plot')",
+          "plt.xlabel('${1:x-label}')",
+          "plt.ylabel('${2:y-label}')",
+          "plt.grid(True)",
+          "plt.show()"
+        ],
+        "description": "Generate a simple line plot"
+      },
+      "Scatter Plot": {
+        "prefix": "scatterplot",
+        "body": [
+          "plt.scatter(x, y, color='red')",
+          "plt.title('Scatter Plot')",
+          "plt.xlabel('${1:x-label}')",
+          "plt.ylabel('${2:y-label}')",
+          "plt.show()"
+        ],
+        "description": "Generate a scatter plot"
+      },
+      "Bar Plot": {
+        "prefix": "barplot",
+        "body": [
+          "plt.bar(x, y, color='green')",
+          "plt.title('Bar Plot')",
+          "plt.xlabel('${1:x-label}')",
+          "plt.ylabel('${2:y-label}')",
+          "plt.show()"
+        ],
+        "description": "Generate a bar plot"
+      },
+      "Histogram": {
+        "prefix": "histogram",
+        "body": [
+          "plt.hist(data, bins=20, color='purple')",
+          "plt.title('Histogram')",
+          "plt.xlabel('${1:x-label}')",
+          "plt.ylabel('${2:y-label}')",
+          "plt.show()"
+        ],
+        "description": "Generate a histogram"
+      },
+      "Heatmap": {
+        "prefix": "heatmap",
+        "body": [
+          "sns.heatmap(data.corr(), annot=True, cmap='coolwarm')",
+          "plt.title('Correlation Heatmap')",
+          "plt.show()"
+        ],
+        "description": "Generate a heatmap for correlation matrix"
+      },
+      "Boxplot": {
+        "prefix": "boxplot",
+        "body": [
+          "sns.boxplot(x='${1:category}', y='${2:value}', data=data)",
+          "plt.title('Boxplot')",
+          "plt.show()"
+        ],
+        "description": "Generate a boxplot"
+      },
+      "Pairplot": {
+        "prefix": "pairplot",
+        "body": [
+          "sns.pairplot(data, hue='${1:category}')",
+          "plt.show()"
+        ],
+        "description": "Generate pairplot for dataset"
+      },
+      "Violin Plot": {
+        "prefix": "violinplot",
+        "body": [
+          "sns.violinplot(x='${1:category}', y='${2:value}', data=data)",
+          "plt.title('Violin Plot')",
+          "plt.show()"
+        ],
+        "description": "Generate a violin plot"
+      },
+    
+
+      "Adding Conv1D Layer": {
+        "prefix": "conv1d",
+        "body": [
+          "model.add(Conv1D(32, 3, activation='relu'))"
+        ],
+        "description": "Adding Conv1D layer."
+      },
+      "Adding Conv2D Layer": {
+        "prefix": "conv2d",
+        "body": [
+          "model.add(Conv2D(64, (3,3), activation='relu'))"
+        ],
+        "description": "Adding Conv2D layer."
+      },
+      "Adding Dense Layer": {
+        "prefix": "dense",
+        "body": [
+          "model.add(Dense(128, activation='relu'))"
+        ],
+        "description": "Adding Dense layer."
+      },
+      "Adding Dropout Layer": {
+        "prefix": "dropout",
+        "body": [
+          "model.add(Dropout(0.5))"
+        ],
+        "description": "Adding Dropout layer."
+      },
+      "Adding MaxPooling1D Layer": {
+        "prefix": "maxpool1d",
+        "body": [
+          "model.add(MaxPooling1D(pool_size=2))"
+        ],
+        "description": "Adding MaxPooling1D layer."
+      },
+      "Adding MaxPooling2D Layer": {
+        "prefix": "maxpool2d",
+        "body": [
+          "model.add(MaxPooling2D(pool_size=(2,2)))"
+        ],
+        "description": "Adding MaxPooling2D layer."
+      },
+      "Adding LSTM Layer": {
+        "prefix": "lstm",
+        "body": [
+          "model.add(LSTM(64, return_sequences=True))"
+        ],
+        "description": "Adding LSTM layer."
+      },
+      "Adding ReLU Activation": {
+        "prefix": "relu",
+        "body": [
+          "model.add(Activation('relu'))"
+        ],
+        "description": "Adding ReLU activation."
+      },
+      "Adding Sigmoid Activation": {
+        "prefix": "sigmoid",
+        "body": [
+          "model.add(Activation('sigmoid'))"
+        ],
+        "description": "Adding Sigmoid activation."
+      },
+      "Adding Softmax Activation": {
+        "prefix": "softmax",
+        "body": [
+          "model.add(Activation('softmax'))"
+        ],
+        "description": "Adding Softmax activation."
+      },
+        "Linear Regression": {
+          "prefix": "linearreg",
           "body": [
-            "import numpy as np",
-            "import pandas as pd",
-            "import matplotlib.pyplot as plt",
-            "import seaborn as sns",
-            "from sklearn.model_selection import train_test_split",
-            "from sklearn.preprocessing import StandardScaler",
-            "from sklearn.linear_model import LogisticRegression",
-            "from sklearn.ensemble import RandomForestClassifier",
-            "from sklearn.metrics import accuracy_score, confusion_matrix"
+            "model = LinearRegression()"
           ],
-          "description": "Import common ML libraries"
+          "description": "Initializing Linear Regression model."
         },
-        "Load Dataset": {
-          "prefix": "loaddata",
+        "Logistic Regression": {
+          "prefix": "logreg",
           "body": [
-            "data = pd.read_csv('${1:dataset.csv}')"
+            "model = LogisticRegression()"
           ],
-          "description": "Load dataset using pandas"
+          "description": "Initializing Logistic Regression model."
         },
-        "Split Data": {
-          "prefix": "splitdata",
+        "Decision Tree Classifier": {
+          "prefix": "dtree",
           "body": [
-            "X = data.drop('${1:target_column}', axis=1)",
-            "y = data['${1:target_column}']",
-            "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)"
+            "model = DecisionTreeClassifier()"
           ],
-          "description": "Split data into train and test sets"
+          "description": "Initializing Decision Tree Classifier model."
         },
-        "Feature Scaling": {
-          "prefix": "scale",
+        "Random Forest Classifier": {
+          "prefix": "rf",
           "body": [
-            "scaler = StandardScaler()",
-            "X_train_scaled = scaler.fit_transform(X_train)",
-            "X_test_scaled = scaler.transform(X_test)"
+            "model = RandomForestClassifier(n_estimators=100)"
           ],
-          "description": "Apply feature scaling to the data"
+          "description": "Initializing Random Forest Classifier model."
         },
-        "Train Logistic Regression": {
-          "prefix": "trainlogreg",
+        "K-Nearest Neighbors": {
+          "prefix": "knn",
           "body": [
-            "model = LogisticRegression()",
-            "model.fit(X_train_scaled, y_train)"
+            "model = KNeighborsClassifier(n_neighbors=5)"
           ],
-          "description": "Train a logistic regression model"
+          "description": "Initializing K-Nearest Neighbors classifier."
         },
-        "Train Random Forest": {
-          "prefix": "trainrf",
+        "Support Vector Classifier": {
+          "prefix": "svc",
           "body": [
-            "rf_model = RandomForestClassifier(n_estimators=100, random_state=42)",
-            "rf_model.fit(X_train_scaled, y_train)"
+            "model = SVC(kernel='linear')"
           ],
-          "description": "Train a random forest classifier"
+          "description": "Initializing Support Vector Classifier."
         },
-        "Model Prediction": {
-          "prefix": "predictmodel",
+        "Gradient Boosting Classifier": {
+          "prefix": "gbc",
           "body": [
-            "y_pred = model.predict(X_test_scaled)"
+            "model = GradientBoostingClassifier(n_estimators=100)"
           ],
-          "description": "Make predictions using the trained model"
+          "description": "Initializing Gradient Boosting Classifier model."
         },
-        "Model Accuracy": {
-          "prefix": "accuracy",
+        "Naive Bayes Classifier": {
+          "prefix": "nb",
           "body": [
-            "accuracy = accuracy_score(y_test, y_pred)",
-            "print('Accuracy:', accuracy)"
+            "model = GaussianNB()"
           ],
-          "description": "Evaluate the model's accuracy"
+          "description": "Initializing Naive Bayes Classifier."
         },
-        "Confusion Matrix": {
-          "prefix": "confusionmatrix",
+        "KMeans Clustering": {
+          "prefix": "kmeans",
           "body": [
-            "cm = confusion_matrix(y_test, y_pred)",
-            "sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')",
-            "plt.show()"
+            "model = KMeans(n_clusters=3)"
           ],
-          "description": "Generate confusion matrix"
+          "description": "Initializing KMeans Clustering model."
         },
-        "Cross Validation": {
-          "prefix": "crossval",
+        "PCA (Principal Component Analysis)": {
+          "prefix": "pca",
           "body": [
-            "from sklearn.model_selection import cross_val_score",
-            "cv_scores = cross_val_score(model, X, y, cv=5)",
-            "print('Cross-validation scores:', cv_scores)"
+            "model = PCA(n_components=2)"
           ],
-          "description": "Perform cross-validation"
+          "description": "Initializing PCA for dimensionality reduction."
         },
-        "Save Model": {
-          "prefix": "savemodel",
+        "StandardScaler": {
+          "prefix": "scaler",
           "body": [
-            "import joblib",
-            "joblib.dump(model, '${1:model}.pkl')"
+            "scaler = StandardScaler()"
           ],
-          "description": "Save the trained model using joblib"
+          "description": "Initializing StandardScaler for data normalization."
         },
-        "Load Model": {
-          "prefix": "loadmodel",
+        "MinMaxScaler": {
+          "prefix": "minmaxscaler",
           "body": [
-            "model = joblib.load('${1:model}.pkl')"
+            "scaler = MinMaxScaler()"
           ],
-          "description": "Load a saved model"
+          "description": "Initializing MinMaxScaler for data scaling."
         },
-        "Feature Importance": {
-          "prefix": "featimportance",
-          "body": [
-            "importances = rf_model.feature_importances_",
-            "indices = np.argsort(importances)[::-1]",
-            "plt.figure(figsize=(10, 6))",
-            "plt.title('Feature Importance')",
-            "plt.bar(range(X_train_scaled.shape[1]), importances[indices], align='center')",
-            "plt.xticks(range(X_train_scaled.shape[1]), X_train.columns[indices], rotation=90)",
-            "plt.show()"
-          ],
-          "description": "Plot feature importance for Random Forest model"
-        },
-        "ROC Curve": {
-          "prefix": "roccurve",
-          "body": [
-            "from sklearn.metrics import roc_curve, auc",
-            "fpr, tpr, thresholds = roc_curve(y_test, y_pred)",
-            "roc_auc = auc(fpr, tpr)",
-            "plt.figure()",
-            "plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)",
-            "plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')",
-            "plt.xlim([0.0, 1.0])",
-            "plt.ylim([0.0, 1.05])",
-            "plt.xlabel('False Positive Rate')",
-            "plt.ylabel('True Positive Rate')",
-            "plt.title('Receiver Operating Characteristic')",
-            "plt.legend(loc='lower right')",
-            "plt.show()"
-          ],
-          "description": "Plot ROC curve"
-        },
-        "Grid Search": {
+        "GridSearchCV": {
           "prefix": "gridsearch",
           "body": [
-            "from sklearn.model_selection import GridSearchCV",
-            "param_grid = {",
-            "  'n_estimators': [50, 100, 200],",
-            "  'max_depth': [10, 20, 30]",
-            "}",
-            "grid_search = GridSearchCV(estimator=rf_model, param_grid=param_grid, cv=5)",
-            "grid_search.fit(X_train_scaled, y_train)",
-            "print('Best parameters:', grid_search.best_params_)"
+            "grid_search = GridSearchCV(model, param_grid, cv=5)"
           ],
-          "description": "Perform Grid Search for hyperparameter tuning"
+          "description": "Setting up GridSearchCV for hyperparameter tuning."
         },
-        "Save Model with Pickle": {
-          "prefix": "savepickle",
+        "Cross-Validation": {
+          "prefix": "crossval",
           "body": [
-            "import pickle",
-            "with open('${1:model_name}.pkl', 'wb') as f:",
-            "    pickle.dump(model, f)"
+            "scores = cross_val_score(model, X, y, cv=5)"
           ],
-          "description": "Save model using pickle"
+          "description": "Performing cross-validation for model evaluation."
         },
-        "Load Model with Pickle": {
-          "prefix": "loadpickle",
-          "body": [
-            "import pickle",
-            "with open('${1:model_name}.pkl', 'rb') as f:",
-            "    model = pickle.load(f)"
-          ],
-          "description": "Load a model using pickle"
-        },
-        "Line Plot": {
-          "prefix": "lineplot",
-          "body": [
-            "plt.plot(x, y, color='blue', marker='o')",
-            "plt.title('Line Plot')",
-            "plt.xlabel('${1:x-label}')",
-            "plt.ylabel('${2:y-label}')",
-            "plt.grid(True)",
-            "plt.show()"
-          ],
-          "description": "Generate a simple line plot"
-        },
-        "Scatter Plot": {
-          "prefix": "scatterplot",
-          "body": [
-            "plt.scatter(x, y, color='red')",
-            "plt.title('Scatter Plot')",
-            "plt.xlabel('${1:x-label}')",
-            "plt.ylabel('${2:y-label}')",
-            "plt.show()"
-          ],
-          "description": "Generate a scatter plot"
-        },
-        "Bar Plot": {
-          "prefix": "barplot",
-          "body": [
-            "plt.bar(x, y, color='green')",
-            "plt.title('Bar Plot')",
-            "plt.xlabel('${1:x-label}')",
-            "plt.ylabel('${2:y-label}')",
-            "plt.show()"
-          ],
-          "description": "Generate a bar plot"
-        },
-        "Histogram": {
-          "prefix": "histogram",
-          "body": [
-            "plt.hist(data, bins=20, color='purple')",
-            "plt.title('Histogram')",
-            "plt.xlabel('${1:x-label}')",
-            "plt.ylabel('${2:y-label}')",
-            "plt.show()"
-          ],
-          "description": "Generate a histogram"
-        },
-        "Heatmap": {
-          "prefix": "heatmap",
-          "body": [
-            "sns.heatmap(data.corr(), annot=True, cmap='coolwarm')",
-            "plt.title('Correlation Heatmap')",
-            "plt.show()"
-          ],
-          "description": "Generate a heatmap for correlation matrix"
-        },
-        "Boxplot": {
-          "prefix": "boxplot",
-          "body": [
-            "sns.boxplot(x='${1:category}', y='${2:value}', data=data)",
-            "plt.title('Boxplot')",
-            "plt.show()"
-          ],
-          "description": "Generate a boxplot"
-        },
-        "Pairplot": {
-          "prefix": "pairplot",
-          "body": [
-            "sns.pairplot(data, hue='${1:category}')",
-            "plt.show()"
-          ],
-          "description": "Generate pairplot for dataset"
-        },
-        "Violin Plot": {
-          "prefix": "violinplot",
-          "body": [
-            "sns.violinplot(x='${1:category}', y='${2:value}', data=data)",
-            "plt.title('Violin Plot')",
-            "plt.show()"
-          ],
-          "description": "Generate a violin plot"
-        },
-        "Area Plot": {
-          "prefix": "areaplot",
-          "body": [
-            "plt.fill_between(x, y, color='skyblue', alpha=0.4)",
-            "plt.title('Area Plot')",
-            "plt.show()"
-          ],
-          "description": "Generate an area plot"
-        },
-        "Precision Recall F1": {
-          "prefix": "precrecallf1",
-          "body": [
-            "from sklearn.metrics import precision_score, recall_score, f1_score",
-            "precision = precision_score(y_test, y_pred)",
-            "recall = recall_score(y_test, y_pred)",
-            "f1 = f1_score(y_test, y_pred)",
-            "print('Precision:', precision)",
-            "print('Recall:', recall)",
-            "print('F1-Score:', f1)"
-          ],
-          "description": "Calculate precision, recall, and F1-score"
-        },
-        "Pipeline": {
-  "prefix": "pipeline",
-  "body": [
-    "from sklearn.pipeline import Pipeline",
-    "pipeline = Pipeline([",
-    "  ('scaler', StandardScaler()),",
-    "  ('classifier', LogisticRegression())",
-    "])",
-    "pipeline.fit(X_train, y_train)"
-  ],
-  "description": "Create and use a machine learning pipeline"
-},
-"RandomizedSearchCV": {
-  "prefix": "randsearch",
-  "body": [
-    "from sklearn.model_selection import RandomizedSearchCV",
-    "param_dist = {",
-    "  'n_estimators': [50, 100, 150],",
-    "  'max_depth': [10, 20, 30]",
-    "}",
-    "random_search = RandomizedSearchCV(estimator=rf_model, param_distributions=param_dist, n_iter=100, cv=5)",
-    "random_search.fit(X_train_scaled, y_train)",
-    "print('Best parameters:', random_search.best_params_)"
-  ],
-  "description": "Perform RandomizedSearchCV for hyperparameter tuning"
-},
-"PCA": {
-  "prefix": "pca",
-  "body": [
-    "from sklearn.decomposition import PCA",
-    "pca = PCA(n_components=2)",
-    "X_pca = pca.fit_transform(X_train_scaled)",
-    "print('Explained variance ratio:', pca.explained_variance_ratio_)"
-  ],
-  "description": "Apply PCA for dimensionality reduction"
-},
-"SMOTE": {
-  "prefix": "smote",
-  "body": [
-    "from imblearn.over_sampling import SMOTE",
-    "smote = SMOTE()",
-    "X_res, y_res = smote.fit_resample(X_train, y_train)",
-    "print('Resampled dataset shape:', X_res.shape)"
-  ],
-  "description": "Apply SMOTE for balancing imbalanced datasets"
-},
-"SHAP": {
-  "prefix": "shap",
-  "body": [
-    "import shap",
-    "explainer = shap.TreeExplainer(rf_model)",
-    "shap_values = explainer.shap_values(X_train_scaled)",
-    "shap.summary_plot(shap_values, X_train_scaled)"
-  ],
-  "description": "Generate SHAP summary plot for model interpretation"
-},
-"GradientBoosting": {
-  "prefix": "gradboost",
-  "body": [
-    "from sklearn.ensemble import GradientBoostingClassifier",
-    "gb_model = GradientBoostingClassifier()",
-    "gb_model.fit(X_train_scaled, y_train)"
-  ],
-  "description": "Train a Gradient Boosting model"
-},
-"K-Fold Cross Validation": {
-  "prefix": "kfoldcv",
-  "body": [
-    "from sklearn.model_selection import cross_val_score",
-    "scores = cross_val_score(model, X, y, cv=5)",
-    "print('Cross-validation scores:', scores)"
-  ],
-  "description": "Perform K-fold cross-validation"
-},
-"Voting Classifier": {
-  "prefix": "votingclassifier",
-  "body": [
-    "from sklearn.ensemble import VotingClassifier",
-    "model1 = LogisticRegression()",
-    "model2 = RandomForestClassifier()",
-    "ensemble_model = VotingClassifier(estimators=[('lr', model1), ('rf', model2)], voting='hard')",
-    "ensemble_model.fit(X_train_scaled, y_train)"
-  ],
-  "description": "Create an ensemble model using voting classifier"
-},
 
-  "cnnmodel": {
-    "prefix": "cnnmodel",
-    "body": [
-      "from tensorflow.keras.models import Sequential",
-      "from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense",
-      "",
-      "model = Sequential([",
-      "    Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)),",
-      "    MaxPooling2D(pool_size=(2, 2)),",
-      "    Flatten(),",
-      "    Dense(128, activation='relu'),",
-      "    Dense(10, activation='softmax')",
-      "])",
-      "",
-      "model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])",
-      "model.fit(X_train, y_train, epochs=10, batch_size=32)"
-    ],
-    "description": "Define and train a CNN model using TensorFlow/Keras"
-  },
-  "rnnmodel": {
-    "prefix": "rnnmodel",
-    "body": [
-      "from tensorflow.keras.models import Sequential",
-      "from tensorflow.keras.layers import SimpleRNN, Dense",
-      "",
-      "model = Sequential([",
-      "    SimpleRNN(50, activation='tanh', input_shape=(100, 1)),",
-      "    Dense(1, activation='sigmoid')",
-      "])",
-      "",
-      "model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])",
-      "model.fit(X_train, y_train, epochs=10, batch_size=32)"
-    ],
-    "description": "Define and train an RNN model using TensorFlow/Keras"
-  },
-  "lstmmodel": {
-    "prefix": "lstmmodel",
-    "body": [
-      "from tensorflow.keras.models import Sequential",
-      "from tensorflow.keras.layers import LSTM, Dense",
-      "",
-      "model = Sequential([",
-      "    LSTM(50, activation='tanh', input_shape=(100, 1)),",
-      "    Dense(1, activation='sigmoid')",
-      "])",
-      "",
-      "model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])",
-      "model.fit(X_train, y_train, epochs=10, batch_size=32)"
-    ],
-    "description": "Define and train an LSTM model using TensorFlow/Keras"
-  },
-  "svmmodel": {
-    "prefix": "svmmodel",
-    "body": [
-      "from sklearn.svm import SVC",
-      "",
-      "model = SVC(kernel='rbf', C=1, gamma='scale')",
-      "model.fit(X_train, y_train)",
-      "y_pred = model.predict(X_test)"
-    ],
-    "description": "Train an SVM model using scikit-learn"
-  },
-  "knnmodel": {
-    "prefix": "knnmodel",
-    "body": [
-      "from sklearn.neighbors import KNeighborsClassifier",
-      "",
-      "model = KNeighborsClassifier(n_neighbors=5)",
-      "model.fit(X_train, y_train)",
-      "y_pred = model.predict(X_test)"
-    ],
-    "description": "Train a KNN model using scikit-learn"
-  },
-  "decisiontree": {
-    "prefix": "decisiontree",
-    "body": [
-      "from sklearn.tree import DecisionTreeClassifier",
-      "",
-      "model = DecisionTreeClassifier(max_depth=5, random_state=42)",
-      "model.fit(X_train, y_train)",
-      "y_pred = model.predict(X_test)"
-    ],
-    "description": "Train a Decision Tree model using scikit-learn"
-  },
-  "randomforest": {
-    "prefix": "randomforest",
-    "body": [
-      "from sklearn.ensemble import RandomForestClassifier",
-      "",
-      "model = RandomForestClassifier(n_estimators=100, random_state=42)",
-      "model.fit(X_train, y_train)",
-      "y_pred = model.predict(X_test)"
-    ],
-    "description": "Train a Random Forest model using scikit-learn"
-  },
-  "xgboostmodel": {
-    "prefix": "xgboostmodel",
-    "body": [
-      "from xgboost import XGBClassifier",
-      "",
-      "model = XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=6, random_state=42)",
-      "model.fit(X_train, y_train)",
-      "y_pred = model.predict(X_test)"
-    ],
-    "description": "Train an XGBoost model"
-  },
-  "gradientboosting": {
-    "prefix": "gradientboosting",
-    "body": [
-      "from sklearn.ensemble import GradientBoostingClassifier",
-      "",
-      "model = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)",
-      "model.fit(X_train, y_train)",
-      "y_pred = model.predict(X_test)"
-    ],
-    "description": "Train a Gradient Boosting model using scikit-learn"
-  },
-  "naivebayes": {
-    "prefix": "naivebayes",
-    "body": [
-      "from sklearn.naive_bayes import GaussianNB",
-      "",
-      "model = GaussianNB()",
-      "model.fit(X_train, y_train)",
-      "y_pred = model.predict(X_test)"
-    ],
-    "description": "Train a Naive Bayes model using scikit-learn"
-  },
-    "Convert Image to Grayscale": {
-      "prefix": "cv2gray",
-      "body": [
-        "gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)"
-      ],
-      "description": "Convert an image to grayscale using OpenCV."
-    },
-    "Resize Image": {
-      "prefix": "cv2resize",
-      "body": [
-        "resized_image = cv2.resize(image, (width, height))"
-      ],
-      "description": "Resize an image to the given width and height."
-    },
-    "Rotate Image": {
-      "prefix": "cv2rotate",
-      "body": [
-        "rows, cols = image.shape[:2]",
-        "rotation_matrix = cv2.getRotationMatrix2D((cols/2, rows/2), angle, scale)",
-        "rotated_image = cv2.warpAffine(image, rotation_matrix, (cols, rows))"
-      ],
-      "description": "Rotate an image by a given angle."
-    },
-    "Flip Image": {
-      "prefix": "cv2flip",
-      "body": [
-        "flipped_image = cv2.flip(image, flip_code)"
-      ],
-      "description": "Flip an image horizontally (flip_code=1), vertically (flip_code=0), or both (flip_code=-1)."
-    },
-    "Apply Gaussian Blur": {
-      "prefix": "cv2gaussianblur",
-      "body": [
-        "blurred_image = cv2.GaussianBlur(image, (kernel_size, kernel_size), sigmaX)"
-      ],
-      "description": "Apply Gaussian blur to an image."
-    },
-    "Draw Contours": {
-      "prefix": "cv2drawcontours",
-      "body": [
-        "contours, hierarchy = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)",
-        "cv2.drawContours(image, contours, -1, (color), thickness)"
-      ],
-      "description": "Find and draw contours on an image."
-    },
-    "Draw Rectangle": {
-      "prefix": "cv2rectangle",
-      "body": [
-        "cv2.rectangle(image, (x1, y1), (x2, y2), (color), thickness)"
-      ],
-      "description": "Draw a rectangle on an image."
-    },
-    "Draw Circle": {
-      "prefix": "cv2circle",
-      "body": [
-        "cv2.circle(image, (center_x, center_y), radius, (color), thickness)"
-      ],
-      "description": "Draw a circle on an image."
-    },
-    "Draw Line": {
-      "prefix": "cv2line",
-      "body": [
-        "cv2.line(image, (x1, y1), (x2, y2), (color), thickness)"
-      ],
-      "description": "Draw a line on an image."
-    },
-    "Apply Mask": {
-      "prefix": "cv2mask",
-      "body": [
-        "masked_image = cv2.bitwise_and(image, image, mask=mask)"
-      ],
-      "description": "Apply a mask to an image."
-    },
-    "Convert to HSV": {
-      "prefix": "cv2hsv",
-      "body": [
-        "hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)"
-      ],
-      "description": "Convert an image to HSV color space."
-    },
-    "Detect Edges (Canny)": {
-      "prefix": "cv2canny",
-      "body": [
-        "edges = cv2.Canny(image, threshold1, threshold2)"
-      ],
-      "description": "Detect edges in an image using the Canny edge detection algorithm."
-    },
-    "Find Contour Centers": {
-      "prefix": "cv2centroid",
-      "body": [
-        "contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)",
-        "for contour in contours:",
-        "    M = cv2.moments(contour)",
-        "    if M['m00'] != 0:",
-        "        cx = int(M['m10'] / M['m00'])",
-        "        cy = int(M['m01'] / M['m00'])"
-      ],
-      "description": "Find centroids of contours in an image."
-    },
-    "Convert to Binary": {
-      "prefix": "cv2binary",
-      "body": [
-        "_, binary_image = cv2.threshold(gray_image, threshold, max_value, cv2.THRESH_BINARY)"
-      ],
-      "description": "Convert a grayscale image to binary using thresholding."
-    },
-    "Apply Morphological Transform": {
-      "prefix": "cv2morphology",
-      "body": [
-        "kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (kernel_size, kernel_size))",
-        "morphed_image = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)"
-      ],
-      "description": "Apply morphological transformations to an image."
-    },
-    "Split Channels": {
-      "prefix": "cv2splitchannels",
-      "body": [
-        "blue_channel, green_channel, red_channel = cv2.split(image)"
-      ],
-      "description": "Split an image into its Blue, Green, and Red channels."
-    },
-    "Merge Channels": {
-      "prefix": "cv2mergechannels",
-      "body": [
-        "merged_image = cv2.merge([blue_channel, green_channel, red_channel])"
-      ],
-      "description": "Merge separate channels into an image."
-    },
-    "Resize Maintaining Aspect Ratio": {
-      "prefix": "cv2resizeaspect",
-      "body": [
-        "height, width = image.shape[:2]",
-        "new_width = int(width * scale)",
-        "new_height = int(height * scale)",
-        "resized_image = cv2.resize(image, (new_width, new_height))"
-      ],
-      "description": "Resize an image while maintaining its aspect ratio."
-    },
-    "Add Text to Image": {
-      "prefix": "cv2puttext",
-      "body": [
-        "cv2.putText(image, 'Text', (x, y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (color), thickness)"
-      ],
-      "description": "Add text to an image at a specified location."
-    },
-    "Apply CLAHE": {
-      "prefix": "cv2clahe",
-      "body": [
-        "clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=(grid_size, grid_size))",
-        "equalized_image = clahe.apply(gray_image)"
-      ],
-      "description": "Apply CLAHE (Contrast Limited Adaptive Histogram Equalization) to enhance contrast."
-    },
-    "Perspective Transform": {
-      "prefix": "cv2perspectivetransform",
-      "body": [
-        "matrix = cv2.getPerspectiveTransform(pts1, pts2)",
-        "warped_image = cv2.warpPerspective(image, matrix, (width, height))"
-      ],
-      "description": "Apply a perspective transformation to an image."
-    }
-
-
-
-
-
-
+          "Read Image": {
+            "prefix": "readimg",
+            "body": [
+              "img = cv2.imread('image.jpg')"
+            ],
+            "description": "Reading an image from a file."
+          },
+          "Display Image": {
+            "prefix": "showimg",
+            "body": [
+              "cv2.imshow('Image', img)"
+            ],
+            "description": "Displaying an image in a window."
+          },
+          "Save Image": {
+            "prefix": "saveimg",
+            "body": [
+              "cv2.imwrite('output.jpg', img)"
+            ],
+            "description": "Saving an image to a file."
+          },
+          "Convert to Grayscale": {
+            "prefix": "gray",
+            "body": [
+              "gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)"
+            ],
+            "description": "Converting an image to grayscale."
+          },
+          "Resize Image": {
+            "prefix": "resize",
+            "body": [
+              "resized = cv2.resize(img, (width, height))"
+            ],
+            "description": "Resizing an image to specific dimensions."
+          },
+          "Edge Detection (Canny)": {
+            "prefix": "canny",
+            "body": [
+              "edges = cv2.Canny(img, 100, 200)"
+            ],
+            "description": "Detecting edges in an image using Canny edge detector."
+          },
+          "Blur Image": {
+            "prefix": "blur",
+            "body": [
+              "blurred = cv2.GaussianBlur(img, (5, 5), 0)"
+            ],
+            "description": "Blurring an image using Gaussian Blur."
+          },
+          "Thresholding": {
+            "prefix": "thresh",
+            "body": [
+              "ret, thresh_img = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)"
+            ],
+            "description": "Applying a binary threshold to an image."
+          },
+          "Find Contours": {
+            "prefix": "contours",
+            "body": [
+              "contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)"
+            ],
+            "description": "Finding contours in a binary image."
+          },
+          "Draw Contours": {
+            "prefix": "drawcontours",
+            "body": [
+              "cv2.drawContours(img, contours, -1, (0, 255, 0), 3)"
+            ],
+            "description": "Drawing contours on an image."
+          },
+          "Add Text to Image": {
+            "prefix": "addtext",
+            "body": [
+              "cv2.putText(img, 'Hello, OpenCV!', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)"
+            ],
+            "description": "Adding text to an image."
+          },
+          "Detect Faces (Haar Cascade)": {
+            "prefix": "detectfaces",
+            "body": [
+              "faces = face_cascade.detectMultiScale(gray, 1.1, 4)"
+            ],
+            "description": "Detecting faces in an image using Haar Cascade classifier."
+          },
+          "Draw Rectangle on Image": {
+            "prefix": "drawrect",
+            "body": [
+              "cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)"
+            ],
+            "description": "Drawing a rectangle around detected objects."
+          },
+          "Video Capture": {
+            "prefix": "videocapture",
+            "body": [
+              "cap = cv2.VideoCapture(0)"
+            ],
+            "description": "Capturing video from a webcam."
+          },
+          "Read Frame from Video": {
+            "prefix": "readframe",
+            "body": [
+              "ret, frame = cap.read()"
+            ],
+            "description": "Reading a frame from the video feed."
+          },
+          "Release Video Capture": {
+            "prefix": "releasecap",
+            "body": [
+              "cap.release()"
+            ],
+            "description": "Releasing the video capture object."
+          }
 
       }
       
