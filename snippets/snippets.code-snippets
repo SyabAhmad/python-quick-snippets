@@ -890,8 +890,74 @@
               "cap.release()"
             ],
             "description": "Releasing the video capture object."
+          },
+          "Apply Mask": {
+            "prefix": "applymask",
+            "body": [
+              "mask = cv2.inRange(image, low_bound, upper_bound )"
+            ],
+            "description": "Applying Mask to the image."
+          },
+          "Add Low Bound color": {
+            "prefix": "lowbound",
+            "body": [
+              "low_brown = np.array([30,100,20])"
+            ],
+            "description": "Adding Low Bound Value to Image."
+          },
+          "Add upper Bound Color": {
+            "prefix": "uppbound",
+            "body": [
+              "upper_brown = np.array([0,255,255])"
+            ],
+            "description": "Adding Upper Bound Value to Image."
+          },
+          "Add WaitKey": {
+            "prefix": "waitkey",
+            "body": [
+              "cv2.waitKey(0)",
+              "cv2.destroyAllWindows()"
+            ],
+            "description": "Add Waitkey and DestroyAllWindows."
+          },
+          "Image Conversion to HSL": {
+            "prefix": "tohsl",
+            "body": [
+              "hsl_image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)"
+            ],
+            "description": "Convert BGR image to hsl"
+          },
+          "Bitwise_and": {
+            "prefix": "bitand",
+            "body": [
+              "image = cv2.bitwise_and(img, img, mask=mask)"
+            ],
+            "description": "Appling Bitwise_and ... mask to image."
+          },
+          "Apply threshold": {
+            "prefix": "threshold",
+            "body": [
+              "_, thresh = cv2.threshold(gray_image, 127, 255, cv2.THRESH_BINARY)"
+            ],
+            "description": "Appling threshold."
+          },
+          "Find contours": {
+            "prefix": "findcontours",
+            "body": [
+              "contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)"
+            ],
+            "description": "Find contours."
+          },
+          "Draw contours": {
+            "prefix": "drawcontours",
+            "body": [
+              "cv2.drawContours(image, contours, -1, (0, 255, 0), 3)  # Green color, thickness 3"
+            ],
+            "description": "Draw contours."
           }
 
       }
       
-  
+
+      
+
